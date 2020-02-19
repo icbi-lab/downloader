@@ -1,27 +1,31 @@
 # nf-downloader: Download files from public repositories.
 
-USAGE:
 ```
-# Download from EGA
-./main.nf --ega --out_dir="/path/to/downloaded/fastqs" --accession="EGAD000XXXXX"
+Usage:
+  # Download from EGA
+  ./main.nf --ega --out_dir="/path/to/downloaded/fastqs" --accession="EGAD000XXXXX"
 
-# Dwonload from SRA
-./main.nf --sra --out_dir="results" --accession_list="SRA_Acc_List.txt"
+  # Dwonload from SRA
+  ./main.nf --sra --out_dir="results" --accession_list="SRA_Acc_List.txt"
 
-# Download from a plain list of ftp/http links
-./main.nf --wget --out_dir="results" --accession_list="urls.txt"
+  # Download from a plain list of ftp/http links
+  ./main.nf --wget --out_dir="results" --accession_list="urls.txt"
+
+Options: 
+  --out_dir                   Path where the FASTQ files will be stored. 
+  --accession_list            List of accession numbers (of files)/download links. One file per line. 
+  --accession                 Accession number (of a dataset) to download. 
+  --parallel_downloads        Number of parallel download slots (default 16). 
+
+Download-modes:
+  --ega                       EGA archive
+  --wget                      Just download a plain list of ftp/http links
+  --sra                       Download from SRA
 ```
 
-## WGET
-For `--accession_list` specify a file that contains one ftp/http url per line. 
+## Setup credentials for EGA download
 
-## SRA
-For `--accesion_list` specify a file that contains one SRRXXXX accession number per line
-
-## EGA
-
-### Store ega credenctials
-First, store your credentials in ~/.ega.json:
+Store your credentials in `~/.ega.json`:
 
 ```
 {
@@ -29,11 +33,3 @@ First, store your credentials in ~/.ega.json:
    "password": "SuperSecurePasswordIncludes123",
 }
 ```
-
-### Usage
-
-```
-./main.nf --outputDir=/dir/where/fastqs/will/be/stored --datasetID EGAD000XXXXXX
-```
-
-You can adjust additional parameters in `nextflow.config`.

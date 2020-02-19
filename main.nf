@@ -3,8 +3,17 @@
 def helpMessage() {
     log.info """
     Usage:
+    # Download from EGA
     ./main.nf --ega --out_dir="/path/to/downloaded/fastqs" --accession="EGAD000XXXXX"
 
+    # Dwonload from SRA
+    ./main.nf --sra --out_dir="results" --accession_list="SRA_Acc_List.txt"
+
+    # Download from a plain list of ftp/http links
+    ./main.nf --wget --out_dir="results" --accession_list="urls.txt"
+
+    Options: 
+    --out_dir                   Path where the FASTQ files will be stored. 
     --accession_list            List of accession numbers (of files)/download links. One file per line. 
     --accession                 Accession number (of a dataset) to download. 
     --parallel_downloads        Number of parallel download slots (default 16). 
