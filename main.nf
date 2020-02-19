@@ -37,7 +37,7 @@ if (params.wget) {
         input:
             val url from Channel.fromPath(params.accession_list).splitText()
         output:
-            file "${url.baseName}"
+            file "${url.substring( url.lastIndexOf('/')+1, url.length() ).strip();}"
 
         script:
         """
@@ -55,19 +55,19 @@ if (params.sra) {
         input:
             val sra_acc from Channel.fromPath(params.accession_list).splitText()
         output:
-            tuple val(sra_acc), file("$srr_acc") into sra_prefetch
+            file "${sra_acc}/${sra_acc}.sra" into sra_prefetch
 
         script:
         """
         # max size: 1TB
-        prefetch --progress 1 --max_size 1024000000 $sra_acc
+        prefetch --progress 1 --max-size 1024000000 $sra_acc
         """       
     } 
 
     process sra_dump {
         publishDir "${params.out_dir}", mode: params.publish_dir_mode
         input:
-            val(sra_acc), file(prefetch_dir) from sra_prefetch
+            file sra_file from sra_prefetch
         
         output:
             "fastq/*.f*q.gz"
@@ -76,7 +76,9 @@ if (params.sra) {
         """
         # fastq-dump options according to https://edwards.sdsu.edu/research/fastq-dump/
         fasterq-dump --outidr fastq --gzip --skip-technical --readids \
-            --read-filter pass --dumpbase --split-3 --clip SRR_ID --threads ${task.cpus}
+            --read-filter pass --dumpbase --split-3 --clip SRR_ID \
+            --threads ${task.cpus} \
+            ${sra_file}
         """
     }
 }

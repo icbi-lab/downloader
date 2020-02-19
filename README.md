@@ -1,4 +1,4 @@
-# Download files from public repositories.
+# nf-downloader: Download files from public repositories.
 
 USAGE:
 ```
@@ -12,12 +12,15 @@ USAGE:
 ./main.nf --wget --out_dir="results" --accession_list="urls.txt"
 ```
 
-## SRA
+## WGET
+For `--accession_list` specify a file that contains one ftp/http url per line. 
 
+## SRA
+For `--accesion_list` specify a file that contains one SRRXXXX accession number per line
 
 ## EGA
 
-## Store ega credenctials
+### Store ega credenctials
 First, store your credentials in ~/.ega.json:
 
 ```
@@ -27,7 +30,7 @@ First, store your credentials in ~/.ega.json:
 }
 ```
 
-## Usage
+### Usage
 
 ```
 ./main.nf --outputDir=/dir/where/fastqs/will/be/stored --datasetID EGAD000XXXXXX
