@@ -1,7 +1,7 @@
 image: continuumio/miniconda3:latest
 
 before_script:
-  - conda install --yes --quiet -c bioconda -c conda-forge nextflow
+  - conda install --yes --quiet -c bioconda -c conda-forge nextflow psutil
 
 test:
   stage: test
