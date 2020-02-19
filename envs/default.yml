@@ -4,5 +4,5 @@ channels:
   - bioconda
 dependencies:
   - pyega3>=3
-
-
+  - sra-tools=2.10.1
+  - wget

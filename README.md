@@ -1,6 +1,21 @@
-# ega_downloader
+# Download files from public repositories.
 
-Download Smartseq2 data from EGA with nextflow.
+USAGE:
+```
+# Download from EGA
+./main.nf --ega --out_dir="/path/to/downloaded/fastqs" --accession="EGAD000XXXXX"
+
+# Dwonload from SRA
+./main.nf --sra --out_dir="results" --accession_list="SRA_Acc_List.txt"
+
+# Download from a plain list of ftp/http links
+./main.nf --wget --out_dir="results" --accession_list="urls.txt"
+```
+
+## SRA
+
+
+## EGA
 
 ## Store ega credenctials
 First, store your credentials in ~/.ega.json:
