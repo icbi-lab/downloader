@@ -55,7 +55,7 @@ if (params.sra) {
         input:
             val sra_acc from Channel.fromPath(params.accession_list).splitText()
         output:
-            file "${sra_acc.strip()}/${sra_acc.strip()}.sra" into sra_prefetch
+            file "${sra_acc.strip()}" into sra_prefetch
 
         script:
         """
@@ -67,20 +67,20 @@ if (params.sra) {
     process sra_dump {
         publishDir "${params.out_dir}", mode: params.publish_dir_mode
         input:
-            file sra_file from sra_prefetch
+            file prefetch_dir from sra_prefetch
         
         output:
-            "fastq/*.f*q.gz"
+            file "*.f*q.gz"
         
         script:
         """
         # fastq-dump options according to https://edwards.sdsu.edu/research/fastq-dump/
         # fasterq-dump seems to have more sensible defaults, some of the 
         # options are not required any more. 
-        fasterq-dump --outfile fastq/${sra_file.baseName} --skip-technical --split-3 \
+        fasterq-dump --outdir . --skip-technical --split-3 \
             --threads ${task.cpus} \
-            ${sra_file}
-        gzip fastq/*
+            ${prefetch_dir}
+        gzip *.f*q
         """
     }
 }

@@ -9,5 +9,4 @@ test:
     - ./main.nf -profile conda --wget --accession_list=tests/wget.txt --out_dir="results"
     - test -f results/S10_L001_I1_001.fastq.gz
     - ./main.nf -profile conda --sra --accession_list=tests/sra.txt --out_dir="results"
-    - test -f results/SRR4216351_1.fastq.gz
-    - test -f results/SRR4216351_2.fastq.gz
+    - test -f results/SRR4216351.fastq.gz
