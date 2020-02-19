@@ -1,7 +1,6 @@
 #!/usr/bin/env nextflow
 
 def helpMessage() {
-    log.info nfcoreHeader()
     log.info """
     Usage:
     ./main.nf --ega --out_dir="/path/to/downloaded/fastqs" --accession="EGAD000XXXXX"
