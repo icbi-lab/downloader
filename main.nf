@@ -55,12 +55,12 @@ if (params.sra) {
         input:
             val sra_acc from Channel.fromPath(params.accession_list).splitText()
         output:
-            file "${sra_acc}/${sra_acc}.sra" into sra_prefetch
+            file "${sra_acc.strip()}/${sra_acc.strip()}.sra" into sra_prefetch
 
         script:
         """
         # max size: 1TB
-        prefetch --progress 1 --max-size 1024000000 $sra_acc
+        prefetch --progress 1 --max-size 1024000000 ${sra_acc.strip()}
         """       
     } 
 
@@ -75,10 +75,12 @@ if (params.sra) {
         script:
         """
         # fastq-dump options according to https://edwards.sdsu.edu/research/fastq-dump/
-        fasterq-dump --outidr fastq --gzip --skip-technical --readids \
-            --read-filter pass --dumpbase --split-3 --clip SRR_ID \
+        # fasterq-dump seems to have more sensible defaults, some of the 
+        # options are not required any more. 
+        fasterq-dump --outfile fastq/${sra_file.baseName} --skip-technical --split-3 \
             --threads ${task.cpus} \
             ${sra_file}
+        gzip fastq/*
         """
     }
 }

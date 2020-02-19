@@ -1,4 +1,4 @@
-image: nextflow/nextflow:latest
+image: quay.io/biocontainers/nextflow
 
 build:
   stage: build
