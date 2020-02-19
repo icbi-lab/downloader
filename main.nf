@@ -6,13 +6,14 @@ def helpMessage() {
     Usage:
     ./main.nf --ega --out_dir="/path/to/downloaded/fastqs" --accession="EGAD000XXXXX"
 
-    --accession_list    List of accession numbers (of files)/download links. One file per line. 
-    --accession         Accession number (of a dataset) to download. 
+    --accession_list            List of accession numbers (of files)/download links. One file per line. 
+    --accession                 Accession number (of a dataset) to download. 
+    --parallel_downloads        Number of parallel download slots (default 16). 
 
     Download-modes:
-    --ega               EGA archive
-    --wget              Just download a plain list of ftp/http links
-    --sra               Download from SRA
+    --ega                       EGA archive
+    --wget                      Just download a plain list of ftp/http links
+    --sra                       Download from SRA
 
     """.stripIndent()
 }
@@ -33,7 +34,10 @@ if (params.wget) {
         exit 1, "wget download mode only supports accession_lists"
     }
     process download_wget {
+        executor 'local'
+        maxForks params.parallel_downloads
         publishDir "${params.out_dir}", mode: params.publish_dir_mode
+
         input:
             val url from Channel.fromPath(params.accession_list).splitText()
         output:
@@ -52,6 +56,9 @@ if (params.sra) {
         exit 1, "sra download mode only supports accession_lists"
     }
     process sra_prefetch {
+        executor 'local'
+        maxForks params.parallel_downloads
+
         input:
             val sra_acc from Channel.fromPath(params.accession_list).splitText()
         output:
@@ -89,6 +96,9 @@ if (params.sra) {
 if(params.ega) {
     if(params.accession) {
         process get_ids {
+            executor 'local'
+            maxForks params.parallel_downloads
+
             conda "envs/pyega.yml"
             publishDir "${params.out_dir}", mode: params.publish_dir_mode
             input:
@@ -105,6 +115,8 @@ if(params.ega) {
     }
 
     process download_fastq {
+        executor 'local'
+        maxForks params.parallel_downloads
         conda "envs/pyega.yml"
         errorStrategy { task.attempt <= 2 ? 'retry' : 'ignore' }
         publishDir "${params.out_dir}", mode: params.publish_dir_mode
