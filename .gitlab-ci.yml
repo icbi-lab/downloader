@@ -1,7 +1,9 @@
-image: quay.io/biocontainers/nextflow:latest
+image: miniconda/miniconda3:latest
 
-build:
-  stage: build
+before_script: conda install --yes --quiet -c bioconda -c conda-forge nextflow
+
+test:
+  stage: test
   script:
     - ./main.nf -profile conda --wget --accession_list=tests/wget.txt --out_dir="results"
     - test -f results/S10_L001_I1_001.fastq.gz
