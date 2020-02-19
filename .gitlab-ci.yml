@@ -7,7 +7,7 @@ test:
   stage: test
   script:
     - ./main.nf --help
-    - ./main.nf -profile conda --wget --accession_list=tests/wget.txt --out_dir="results"
+    - ./main.nf -profile conda --wget --accession_list=tests/wget.txt --out_dir="results" -c tests/test.conf
     - test -f results/S10_L001_I1_001.fastq.gz
-    - ./main.nf -profile conda --sra --accession_list=tests/sra.txt --out_dir="results"
+    - ./main.nf -profile conda --sra --accession_list=tests/sra.txt --out_dir="results" -c tests/test.conf
     - test -f results/SRR4216351.fastq.gz
