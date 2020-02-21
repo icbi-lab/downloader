@@ -1,0 +1,12 @@
+name: gdc-downloader
+channels:
+  - defaults
+  - conda-forge
+  - bioconda
+dependencies:
+  - pigz
+  - pip
+  - pip:
+    - six
+    - -r https://github.com/NCI-GDC/gdc-client/raw/develop/requirements.txt
+    - git+https://github.com/NCI-GDC/gdc-client.git

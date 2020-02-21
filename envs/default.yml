@@ -1,3 +1,4 @@
+name: default-downloader
 channels:
   - defaults
   - conda-forge
