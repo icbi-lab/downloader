@@ -69,6 +69,10 @@ Usage:
     --gdc                       Download from GDC portal 
 ```
 
+## SRA
+Hint: to get faster, more reliable download links for SRA identifiers
+use [SRA Explorer](https://sra-explorer.info/). 
+
 ## Setup credentials for EGA download
 
 Store your credentials in `~/.ega.json`:
