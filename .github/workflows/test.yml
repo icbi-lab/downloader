@@ -26,8 +26,6 @@ jobs:
           test -f results/de9105ef-cd6c-4565-8526-568b5f55a47c/8daaa0e5-f4c5-44d3-ab0d-169731e3d055.FPKM-UQ.txt.gz
         ./main.nf --gdc --gdc_manifest tests/gdc_manifest_1.txt --out_dir="results" -c tests/test.conf
         test -f results/34ff99a3-12d5-4019-be29-fae17a39707b/6c05c035-ef72-4695-bb56-d34adccc2972.htseq.counts.gz
-        ./main.nf --gdc --gdc_file_id_list.txt --out_dir="results" -c tests/test.conf
+        ./main.nf --gdc --gdc_file_id _list.txt tests/gdc_file_id_list.txt --out_dir="results" -c tests/test.conf
         test -f results/daa44ce1-1671-46b9-aa48-2f4155f0ee49/a998a5b1-397d-4497-a58c-9b9e1c7f491e.htseq.counts.gz && \
           test -f results/37cf1cb8-3fe8-44c9-88f2-bfbd89ff4bb0/9ae1330c-a197-416a-9d5f-3ca16b36ec90.htseq.counts.gz
-        
-
