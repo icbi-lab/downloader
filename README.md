@@ -83,3 +83,9 @@ Store your credentials in `~/.ega.json`:
    "password": "SuperSecurePasswordIncludes123",
 }
 ```
+
+## GDC
+A authentication token file is required to download protected data from GDC.
+Users with access to protected data may download a token file from https://portal.gdc.cancer.gov/
+when logged in.
+
