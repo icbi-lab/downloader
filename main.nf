@@ -90,6 +90,7 @@ if (params.wget) {
         executor 'local'
         maxForks params.parallel_downloads
         publishDir "${params.out_dir}", mode: params.publish_dir_mode
+        errorStrategy { task.attempt <= 2 ? 'retry' : 'ignore' }
 
         input:
         val url from Channel.fromPath(params.accession_list).splitText()
