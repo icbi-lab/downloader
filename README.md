@@ -5,22 +5,21 @@ Usage:
     # Download from EGA
     ./main.nf --ega --out_dir="/path/to/downloaded/fastqs" --accession="EGAD000XXXXX"
 
-    # Dwonload from SRA
+    # Download from a plain list of ascp links
+    # Automatically converts EBI ftp links into ascp links.
+    ./main.nf --ascp --out_dir="/path/to/downloaded/fastqs" --accession_list="urls.txt"
+
+    # Download from SRA
     ./main.nf --sra --out_dir="results" --accession_list="SRA_Acc_List.txt"
 
     # Download from a plain list of ftp/http links
     ./main.nf --wget --out_dir="results" --accession_list="urls.txt"
 
-    # Download from a plain list of ascp links
-    # Automatically converts EGA ftp links into ASCP links.
-    ./main.nf --ascp --out_dir="results" --accession_list="urls.txt"
-
     # Download open file from GDC
     ./main.nf --gdc --out_dir="results" --gdc_file_id 2776a850-d9b4-4c26-8414-528458c9c7c3
 
     # Download multiple open files from GDC
-    ./main.nf --gdc --out_dir="results" \
-        --gdc_file_id 2776a850-d9b4-4c26-8414-528458c9c7c3,de9105ef-cd6c-4565-8526-568b5f55a47c
+    ./main.nf --gdc --out_dir="results"         --gdc_file_id 2776a850-d9b4-4c26-8414-528458c9c7c3,de9105ef-cd6c-4565-8526-568b5f55a47c
     or
     ./main.nf --gdc --out_dir="results" --gdc_file_id myGDCFileIds.txt
 
@@ -31,11 +30,7 @@ Usage:
     [same as above but] --gdc_token myGDCtokenFile.txt
 
     # Download BAM slices from GDC
-    ./main.nf --gdc --out_dir="results" \
-        --gdc_bamslice chr1,chr2:1000000-2000000 \
-        --gdc_file_id 82805a58-0e0c-4b29-bfae-e121236203a7 \
-        --gdc_token myGDCtokenFile.txt \
-        --gdc_bamslice_type region
+    ./main.nf --gdc --out_dir="results"         --gdc_bamslice chr1,chr2:1000000-2000000         --gdc_file_id 82805a58-0e0c-4b29-bfae-e121236203a7         --gdc_token myGDCtokenFile.txt         --gdc_bamslice_type region
 
     # mutiple region/gene or files may specified see Options below.
 
@@ -64,6 +59,8 @@ Usage:
                                     - file containing genes, one file per line
     --gdc_bamslice_fastq        convert BAM slices to fastq (default false)
     --gdc_token                 GDC access token file for protected data
+    --ascp_private_key_file     Path to the aspera private key file. Defaults
+                                to $(dirname $(readlink -f $(which ascp)))/../etc/asperaweb_id_dsa.openssh
 
 
     Download-modes:
@@ -71,6 +68,7 @@ Usage:
     --wget                      Just download a plain list of ftp/http links
     --sra                       Download from SRA
     --gdc                       Download from GDC portal
+    --ascp                      Download aspera connect links
 ```
 
 ## SRA
