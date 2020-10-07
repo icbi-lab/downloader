@@ -6,7 +6,8 @@ def helpMessage() {
     # Download from EGA
     ./main.nf --ega --out_dir="/path/to/downloaded/fastqs" --accession="EGAD000XXXXX"
 
-    # Download using Aspera connect
+    # Download from a plain list of ascp links
+    # Automatically converts EBI ftp links into ascp links.
     ./main.nf --ascp --out_dir="/path/to/downloaded/fastqs" --accession_list="urls.txt"
 
     # Download from SRA
