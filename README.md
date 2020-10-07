@@ -11,6 +11,10 @@ Usage:
     # Download from a plain list of ftp/http links
     ./main.nf --wget --out_dir="results" --accession_list="urls.txt"
 
+    # Download from a plain list of ascp links
+    # Automatically converts EGA ftp links into ASCP links.
+    ./main.nf --ascp --out_dir="results" --accession_list="urls.txt"
+
     # Download open file from GDC
     ./main.nf --gdc --out_dir="results" --gdc_file_id 2776a850-d9b4-4c26-8414-528458c9c7c3
 
@@ -32,14 +36,14 @@ Usage:
         --gdc_file_id 82805a58-0e0c-4b29-bfae-e121236203a7 \
         --gdc_token myGDCtokenFile.txt \
         --gdc_bamslice_type region
-    
+
     # mutiple region/gene or files may specified see Options below.
 
 
-    Options: 
-    --out_dir                   Path where the FASTQ files will be stored. 
-    --accession_list            List of accession numbers (of files)/download links. One file per line. 
-    --accession                 Accession number (of a dataset) to download. 
+    Options:
+    --out_dir                   Path where the FASTQ files will be stored.
+    --accession_list            List of accession numbers (of files)/download links. One file per line.
+    --accession                 Accession number (of a dataset) to download.
     --parallel_downloads        Number of parallel download slots (default 16).
     --gdc_file_id               GDC file uuid(s):
                                     - single uuid or comma separated list of uuids
@@ -48,7 +52,7 @@ Usage:
     --gdc_manifest              GDC portal data download manifest file obtained
                                 from https://portal.gdc.cancer.gov/
     --gdc_bamslice_type         Type of BAM slice to download [region|gene] (default: region)
-    --gdc_bamslice              BAM slice to download:                  
+    --gdc_bamslice              BAM slice to download:
                                     - single region or comma separated list of regions, e.g.:
                                         chr1,chr2:1000000-2000000,[...]
                                     or
@@ -66,12 +70,12 @@ Usage:
     --ega                       EGA archive
     --wget                      Just download a plain list of ftp/http links
     --sra                       Download from SRA
-    --gdc                       Download from GDC portal 
+    --gdc                       Download from GDC portal
 ```
 
 ## SRA
 Hint: to get faster, more reliable download links for SRA identifiers
-use [SRA Explorer](https://sra-explorer.info/). 
+use [SRA Explorer](https://sra-explorer.info/).
 
 ## Setup credentials for EGA download
 
