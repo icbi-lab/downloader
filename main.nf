@@ -154,7 +154,7 @@ if (params.sra) {
         script:
         """
         # max size: 1TB
-        prefetch --progress 1 --max-size 1024000000 ${sra_acc.strip()}
+        prefetch --progress 1 --max_size 1024000000 ${sra_acc.strip()}
         """
     }
 
