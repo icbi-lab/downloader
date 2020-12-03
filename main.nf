@@ -144,6 +144,11 @@ if (params.sra) {
     process sra_prefetch {
         executor 'local'
         maxForks params.parallel_downloads
+        // different versions have different parameters.
+        // Use the conda version to make sure it's compatible
+        conda "sra-tools=2.10.8"
+        //prefetch successfully downloaded the data but still generated exit code 3.
+        validExitStatus 0,3
 
         input:
         val sra_acc from Channel.fromPath(params.accession_list).splitText()
@@ -154,12 +159,15 @@ if (params.sra) {
         script:
         """
         # max size: 1TB
-        prefetch --progress 1 --max_size 1024000000 ${sra_acc.strip()}
+        prefetch --progress 1 --max-size 1024000000 ${sra_acc.strip()}
         """
     }
 
     process sra_dump {
         publishDir "${params.out_dir}", mode: params.publish_dir_mode
+        // different versions have different parameters.
+        // Use the conda version to make sure it's compatible
+        conda "sra-tools=2.10.8"
 
         input:
         file prefetch_dir from sra_prefetch
