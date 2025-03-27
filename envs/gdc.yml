@@ -7,7 +7,4 @@ dependencies:
   - pigz
   - pip
   - samtools
-  - pip:
-    - six
-    - -r https://github.com/NCI-GDC/gdc-client/raw/develop/requirements.txt
-    - git+https://github.com/NCI-GDC/gdc-client.git
+  - gdc-client

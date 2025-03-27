@@ -19,16 +19,16 @@ jobs:
     - name: test
       shell: bash -l {0}
       run: | 
-        ./main.nf --help
-        ./main.nf -profile conda --wget --accession_list=tests/wget.txt --out_dir="results" -c tests/test.conf
-        test -f results/S10_L001_I1_001.fastq.gz
-        ./main.nf -profile conda --sra --accession_list=tests/sra.txt --out_dir="results" -c tests/test.conf
+        nextflow run main.nf --help
+        nextflow run main.nf -profile conda --wget --accession_list=tests/wget.txt --out_dir="results" -c tests/test.conf
+        test -f results/SRR4238351_subsamp.fastq.gz
+        nextflow run main.nf -profile conda --sra --accession_list=tests/sra.txt --out_dir="results" -c tests/test.conf --sracpus 2
         test -f results/SRR4216351.fastq.gz
-        ./main.nf --gdc --gdc_file_id 2776a850-d9b4-4c26-8414-528458c9c7c3,de9105ef-cd6c-4565-8526-568b5f55a47c --out_dir="results" -c tests/test.conf
-        test -f results/2776a850-d9b4-4c26-8414-528458c9c7c3/7e5e6e78-a71e-4ae7-808d-0b09765af9b3.htseq_counts.txt.gz && \
-          test -f results/de9105ef-cd6c-4565-8526-568b5f55a47c/8daaa0e5-f4c5-44d3-ab0d-169731e3d055.FPKM-UQ.txt.gz
-        ./main.nf --gdc --gdc_manifest tests/gdc_manifest_1.txt --out_dir="results" -c tests/test.conf
-        test -f results/34ff99a3-12d5-4019-be29-fae17a39707b/6c05c035-ef72-4695-bb56-d34adccc2972.htseq.counts.gz
-        ./main.nf --gdc --gdc_file_id tests/gdc_file_id_list.txt --out_dir="results" -c tests/test.conf
-        test -f results/daa44ce1-1671-46b9-aa48-2f4155f0ee49/a998a5b1-397d-4497-a58c-9b9e1c7f491e.htseq.counts.gz && \
-          test -f results/37cf1cb8-3fe8-44c9-88f2-bfbd89ff4bb0/9ae1330c-a197-416a-9d5f-3ca16b36ec90.htseq.counts.gz
+        nextflow run main.nf --gdc --gdc_file_id 57c425f6-9625-407e-93b8-1d03858fd1f6,00cdff29-697a-4a17-ba67-cf55c006b827 --out_dir="results" -c tests/test.conf
+        test -f results/57c425f6-9625-407e-93b8-1d03858fd1f6/576325e7-0f30-406c-9147-80e3edcf8b57.rna_seq.augmented_star_gene_counts.tsv && \
+          test -f results/00cdff29-697a-4a17-ba67-cf55c006b827/0f35c851-1cb8-4f75-a661-eae9111b7362.rna_seq.augmented_star_gene_counts.tsv
+        nextflow run main.nf --gdc --gdc_manifest tests/gdc_manifest_1.txt --out_dir="results" -c tests/test.conf
+        test -f results/a77adf63-487b-476e-bd33-903005c1dba9/12b633ae-2a36-40b0-a4a3-c1d5f021fa23.rna_seq.augmented_star_gene_counts.tsv 
+        nextflow run main.nf --gdc --gdc_file_id tests/gdc_file_id_list.txt --out_dir="results" -c tests/test.conf
+        test -f results/b064b6be-4152-4737-8158-caa0454cf41b/f279a2fa-6d1b-476c-b91b-598f5c1bbc34.rna_seq.augmented_star_gene_counts.tsv && \
+          test -f results/3456d4a1-bb29-4559-8c4e-c9b0e512fae3/52472301-36c6-4c99-97bd-b016d8a282d6.rna_seq.augmented_star_gene_counts.tsv
